@@ -3,7 +3,10 @@ package br.jhonatastomaz.implementations.models;
 import java.util.Date;
 import java.util.List;
 
-public class Service {
+import br.jhonatastomaz.interfaces.IService;
+import br.jhonatastomaz.interfaces.IServiceManager;
+
+public class Service implements IService{
 
 	private int id;
     private int clientId;

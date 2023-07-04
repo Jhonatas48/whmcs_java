@@ -1,4 +1,4 @@
-package br.jhonatastomaz;
+package br.jhonatastomaz.implementations.managers;
 
 import me.hwiggy.whmjava.payload.Payload;
 import org.json.JSONObject;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * These semantics are defined at the following URL:
  * <a href="https://developers.whmcs.com/api/authentication/">API Documentation</a>
  */
-class WHMCS {
+class WHMCSApi {
     private final HttpClient client = HttpClient.newHttpClient();
     private final String url, identifier, secret;
     private final boolean oldAuth;
@@ -30,7 +30,7 @@ class WHMCS {
      * @param username The Username to authenticate with
      * @param password The Password to authenticate with
      */
-    public WHMCS(boolean oldAuth, String url, String username, String password){
+    public WHMCSApi(boolean oldAuth, String url, String username, String password){
         this.oldAuth = oldAuth;
         this.url = url;
         this.identifier = username;
@@ -43,7 +43,7 @@ class WHMCS {
      * @param identifier The Identifier to authenticate with
      * @param secret The Secret to authenticate with
      */
-    public WHMCS(String url, String identifier, String secret){
+    public WHMCSApi(String url, String identifier, String secret){
         this(false, url, identifier, secret);
     }
 

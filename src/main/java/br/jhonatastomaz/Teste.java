@@ -8,9 +8,12 @@ import org.json.JSONObject;
 import br.jhonatastomaz.desserializer.ClientDesserializer;
 import br.jhonatastomaz.desserializer.ProductDesserealizer;
 import br.jhonatastomaz.desserializer.ServiceDesserializer;
+import br.jhonatastomaz.implementations.managers.Whmcs;
+import br.jhonatastomaz.implementations.managers.WhmcsBuilder;
 import br.jhonatastomaz.implementations.models.Client;
 import br.jhonatastomaz.implementations.models.Product;
 import br.jhonatastomaz.implementations.models.Service;
+import br.jhonatastomaz.interfaces.IWhmcs;
 import me.hwiggy.whmjava.payload.Payload;
 import me.hwiggy.whmjava.payload.g.GetClientsPayload;
 import me.hwiggy.whmjava.payload.g.GetClientsProductsPayload;
@@ -20,7 +23,7 @@ public class Teste {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
+		/*
 		WHMCS w = new WHMCS("https://dashboard.cloudconnect.net.br/includes/api.php", "FizgdXypf0rHt5Sz4eNCLsObCfZhs8gk","abdXxQQX0E9uRwzmN2UloVrotqWx4EHC");
         Payload p = new GetClientsPayload().withLimitnum(150);
         
@@ -90,6 +93,14 @@ public class Teste {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
+		System.out.println("Iniciando");
+		long d = System.currentTimeMillis();
+		WhmcsBuilder builder = new WhmcsBuilder("https://dashboard.cloudconnect.net.br/includes/api.php", "FizgdXypf0rHt5Sz4eNCLsObCfZhs8gk","abdXxQQX0E9uRwzmN2UloVrotqWx4EHC");
+		IWhmcs w = builder.build();
+		w.getClientManager().getClientByEmail("harturbeltramello6@gmail.com").getServiceManager().getServices();
+		long a = System.currentTimeMillis();
+		System.out.println("Total: "+(a-d)+" ms");
 	}
 
 }

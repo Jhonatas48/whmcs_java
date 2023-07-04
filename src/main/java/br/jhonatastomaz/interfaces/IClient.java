@@ -10,12 +10,12 @@ public interface IClient {
 	 String getLastName();
 	 String getCompanyName();
 	 String getEmail();
-	 void setCustomField(String fieldName, String fieldValue);
-	 String getCustomField(String fieldName);
-	 boolean hasCustomField(String fieldName);
+	 void setCustomField(int fieldid, String fieldValue);
+	 String getCustomField(int fieldid);
+	 boolean hasCustomField(int fieldid);
 	 IUser getOwner();
 	 List<IUser>getUsers();
-	 List<IService>getServices();
+	 IServiceManager getServiceManager();
 	 Date getDateCreated();
 	 void setDateCreated(Date dateCreated);
 	 int getGroupId();

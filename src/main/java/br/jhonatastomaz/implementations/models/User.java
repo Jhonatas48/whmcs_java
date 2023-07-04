@@ -6,43 +6,50 @@ import br.jhonatastomaz.interfaces.IUser;
 public class User implements IUser {
 
 	 private int id;
-	 private String firstName;
-	 private String lastName;
-	 private String companyName;
+	
+	 private String name;
+	
 	 private String email;
-	 private HashMap<String, String> customFields;
 	 
-	 public int getId() {
+	 public User(int id, String name, String email) {
+	        this.id = id;
+	        this.name=name;
+	        this.email = email;
+	      
+	    }
+
+	 public User() {
+		 
+	 }
+	 
+	 public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public int getId() {
 	        return id;
-	    }
+	}
 
-	    public String getFirstName() {
-	        return firstName;
-	    }
+	 public void setId(int id) {
+		this.id = id;
+	}
 
-	    public String getLastName() {
-	        return lastName;
-	    }
+	@Override
+	public String getName() {
+		
+		return name;
+	}
 
-	    public String getCompanyName() {
-	        return companyName;
-	    }
+	@Override
+	public String getEmail() {
+	
+		return email;
+	}
 
-	    public String getEmail() {
-	        return email;
-	    }
-
-	    public void setCustomField(String fieldName, String fieldValue) {
-	        customFields.put(fieldName, fieldValue);
-	    }
-
-	    public String getCustomField(String fieldName) {
-	        return customFields.get(fieldName);
-	    }
-
-	    public boolean hasCustomField(String fieldName) {
-	        return customFields.containsKey(fieldName);
-	    }
 	   
 
 }

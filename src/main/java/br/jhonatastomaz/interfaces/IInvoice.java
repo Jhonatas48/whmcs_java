@@ -1,12 +1,32 @@
 package br.jhonatastomaz.interfaces;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 public interface IInvoice {
 
 	 int getId();
-	 int getClientId();
+	 int getUserId();
+	 String getInvoiceNum();
 	 Date getDate();
-	 BigDecimal getTotalAmount();
+	 Date getDueDate();
+	 Date getDatePaid();
+	 Date getLastCaptureAttempt();
+	 Date getDateRefunded();
+	 Date getDateCancelled();
+	 double getSubtotal();
+	 double getCredit();
+	 double getTax();
+	 double getTax2();
+	 double getTotal();
+	 double getTaxRate();
+	 double getTaxRate2();
+	 String getStatus();
+	 String getPaymentMethod();
+	 int getPayMethodId();
+	 String getNotes();
+	 Date getCreatedAt();
+	 Date getUpdatedAt();
+	 String getCurrencyCode();
+	 String getCurrencyPrefix();
+	 String getCurrencySuffix();
 }
