@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import br.jhonatastomaz.implementations.models.Invoice;
 import br.jhonatastomaz.interfaces.IInvoice;
+import br.jhonatastomaz.interfaces.details.IInvoiceDetails;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -35,13 +36,14 @@ public class InvoiceDesserializer {
 		     invoice.setTaxRate2(jsonObject.getDouble("taxrate2"));
 	         invoice.setStatus(jsonObject.getString("status"));
              invoice.setPaymentMethod(jsonObject.getString("paymentmethod"));
-		     invoice.setPayMethodId(jsonObject.getInt("paymethodid"));
+		     invoice.setPayMethodId(jsonObject.get("paymethodid").toString());
 		     invoice.setNotes(jsonObject.getString("notes"));
 	         invoice.setCreatedAt(parseDateTime(jsonObject.getString("created_at")));
 		     invoice.setUpdatedAt(parseDateTime(jsonObject.getString("updated_at")));
 		     invoice.setCurrencyCode(jsonObject.getString("currencycode"));
 		     invoice.setCurrencyPrefix(jsonObject.getString("currencyprefix"));
 		     invoice.setCurrencySuffix(jsonObject.getString("currencysuffix"));
+		  
 		     return invoice;
 		} catch (JSONException | ParseException e) {
 			
@@ -51,7 +53,8 @@ public class InvoiceDesserializer {
         return null;
        
     }
-
+    
+   
     private static Date parseDate(String dateString) throws ParseException {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormat.parse(dateString);

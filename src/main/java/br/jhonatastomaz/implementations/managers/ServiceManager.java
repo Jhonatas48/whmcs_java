@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 import br.jhonatastomaz.desserializer.ServiceDesserializer;
 import br.jhonatastomaz.interfaces.IService;
-import br.jhonatastomaz.interfaces.IServiceManager;
+import br.jhonatastomaz.interfaces.managers.IServiceManager;
 import me.hwiggy.whmjava.payload.Payload;
 import me.hwiggy.whmjava.payload.g.GetClientsProductsPayload;
 

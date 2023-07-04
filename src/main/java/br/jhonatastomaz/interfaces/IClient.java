@@ -3,6 +3,9 @@ package br.jhonatastomaz.interfaces;
 import java.util.Date;
 import java.util.List;
 
+import br.jhonatastomaz.interfaces.managers.IInvoiceManager;
+import br.jhonatastomaz.interfaces.managers.IServiceManager;
+
 public interface IClient {
 
 	 int getId();
@@ -22,5 +25,6 @@ public interface IClient {
 	 void setGroupId(int groupId);
 	 String getStatus();
      void setStatus(String status);
+     public IInvoiceManager getInvoiceManager();
 	 
 }

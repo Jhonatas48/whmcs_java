@@ -3,6 +3,7 @@ package br.jhonatastomaz.implementations.models;
 import java.util.Date;
 
 import br.jhonatastomaz.interfaces.IInvoice;
+import br.jhonatastomaz.interfaces.details.IInvoiceDetails;
 
 
 public class Invoice implements IInvoice{
@@ -24,15 +25,18 @@ public class Invoice implements IInvoice{
     private double taxRate2;
     private String status;
     private String paymentMethod;
-    private int payMethodId;
+    private String payMethodId;
     private String notes;
     private Date createdAt;
     private Date updatedAt;
     private String currencyCode;
     private String currencyPrefix;
     private String currencySuffix;
-  
+    private IInvoiceDetails invoiceDetails;
     
+    public Invoice() {
+    	
+    }
   
     public int getId() {
         return id;
@@ -178,11 +182,11 @@ public class Invoice implements IInvoice{
         this.paymentMethod = paymentMethod;
     }
   
-    public int getPayMethodId() {
+    public String getPayMethodId() {
         return payMethodId;
     }
   
-    public void setPayMethodId(int payMethodId) {
+    public void setPayMethodId(String payMethodId) {
         this.payMethodId = payMethodId;
     }
   
@@ -233,5 +237,13 @@ public class Invoice implements IInvoice{
     public void setCurrencySuffix(String currencySuffix) {
         this.currencySuffix = currencySuffix;
     }
+
+	public IInvoiceDetails getInvoiceDetails() {
+		return invoiceDetails;
+	}
+
+	public void setInvoiceDetails(IInvoiceDetails invoiceDetails) {
+		this.invoiceDetails = invoiceDetails;
+	}
    
 }

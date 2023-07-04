@@ -1,6 +1,7 @@
 package br.jhonatastomaz;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -13,6 +14,7 @@ import br.jhonatastomaz.implementations.managers.WhmcsBuilder;
 import br.jhonatastomaz.implementations.models.Client;
 import br.jhonatastomaz.implementations.models.Product;
 import br.jhonatastomaz.implementations.models.Service;
+import br.jhonatastomaz.interfaces.IInvoice;
 import br.jhonatastomaz.interfaces.IWhmcs;
 import me.hwiggy.whmjava.payload.Payload;
 import me.hwiggy.whmjava.payload.g.GetClientsPayload;
@@ -98,7 +100,8 @@ public class Teste {
 		long d = System.currentTimeMillis();
 		WhmcsBuilder builder = new WhmcsBuilder("https://dashboard.cloudconnect.net.br/includes/api.php", "FizgdXypf0rHt5Sz4eNCLsObCfZhs8gk","abdXxQQX0E9uRwzmN2UloVrotqWx4EHC");
 		IWhmcs w = builder.build();
-		w.getClientManager().getClientByEmail("harturbeltramello6@gmail.com").getServiceManager().getServices();
+		List<IInvoice>i= w.getClientManager().getClientByEmail("harturbeltramello6@gmail.com").getInvoiceManager().getInvoices();//getServiceManager().getServices();
+		i.get(0).getInvoiceDetails().getItemsInvoice();
 		long a = System.currentTimeMillis();
 		System.out.println("Total: "+(a-d)+" ms");
 	}

@@ -8,17 +8,18 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import br.jhonatastomaz.desserializer.InvoiceDesserializer;
+import br.jhonatastomaz.implementations.models.Invoice;
 import br.jhonatastomaz.interfaces.IInvoice;
-import br.jhonatastomaz.interfaces.IInvoiceManager;
+import br.jhonatastomaz.interfaces.managers.IInvoiceManager;
 import me.hwiggy.whmjava.payload.Payload;
 import me.hwiggy.whmjava.payload.g.GetInvoicesPayload;
 
-public class InvoiceClientManager implements IInvoiceManager{
+public class InvoiceManager implements IInvoiceManager{
 
 	private WHMCSApi api;
     private int userId;
 	
-	public InvoiceClientManager(WHMCSApi api,int userid) {
+	public InvoiceManager(WHMCSApi api,int userid) {
 		this.api=api;
 		this.userId=userid;
 		if(api == null) {
@@ -28,7 +29,7 @@ public class InvoiceClientManager implements IInvoiceManager{
 			throw new IllegalArgumentException("UserId is 0");
 		}
 	}
-	public InvoiceClientManager(WHMCSApi api) {
+	public InvoiceManager(WHMCSApi api) {
 		this.api=api;
 		if(api == null) {
 			throw new NullPointerException("WhmcsAPi is null");
@@ -79,7 +80,8 @@ public class InvoiceClientManager implements IInvoiceManager{
 			
 			for(int id=0;id<lenght;id++) {
 				JSONObject invoiceObject = invoicesArray.getJSONObject(id);
-				IInvoice invoice = InvoiceDesserializer.deserialize(invoiceObject);
+				Invoice  invoice = (Invoice) InvoiceDesserializer.deserialize(invoiceObject);
+				invoice.setInvoiceDetails(new InvoiceDetailsManager(api,invoice.getId()));
 				invoices.add(invoice);
 				
 			}

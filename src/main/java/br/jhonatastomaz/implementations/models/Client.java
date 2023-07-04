@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import br.jhonatastomaz.interfaces.IClient;
-import br.jhonatastomaz.interfaces.IInvoiceManager;
-import br.jhonatastomaz.interfaces.IServiceManager;
 import br.jhonatastomaz.interfaces.IUser;
+import br.jhonatastomaz.interfaces.managers.IInvoiceManager;
+import br.jhonatastomaz.interfaces.managers.IServiceManager;
 
 public class Client implements IClient{
 
@@ -470,7 +470,9 @@ public class Client implements IClient{
 	}
 
 	public void setOwner(IUser owner) {
+	
 		this.owner = owner;
+		
 	}
 
 	public void setCustomFields(HashMap<Integer, String> customFields) {

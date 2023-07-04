@@ -1,7 +1,7 @@
 package br.jhonatastomaz.implementations.managers;
 
-import br.jhonatastomaz.interfaces.IClientManager;
 import br.jhonatastomaz.interfaces.IWhmcs;
+import br.jhonatastomaz.interfaces.managers.IClientManager;
 
 public class Whmcs implements IWhmcs{
 

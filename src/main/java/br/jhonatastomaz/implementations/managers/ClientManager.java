@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import br.jhonatastomaz.desserializer.ClientDesserializer;
 import br.jhonatastomaz.implementations.models.Client;
 import br.jhonatastomaz.interfaces.IClient;
-import br.jhonatastomaz.interfaces.IClientManager;
+import br.jhonatastomaz.interfaces.managers.IClientManager;
 import me.hwiggy.whmjava.payload.Payload;
 import me.hwiggy.whmjava.payload.g.GetClientsDetailsPayload;
 import me.hwiggy.whmjava.payload.g.GetClientsPayload;
@@ -95,7 +95,7 @@ public class ClientManager implements IClientManager{
 			Client clientDetails = ClientDesserializer.deserializeDetailsClient(json);
 			clientDetails.setDateCreated(client.getDateCreated());
 			clientDetails.setServiceManager(new ServiceManager(api,clientDetails.getId()));
-			clientDetails.setInvoiceManager(new InvoiceClientManager(api, client.getOwner().getId()));
+			clientDetails.setInvoiceManager(new InvoiceManager(api, clientDetails.getOwner().getId()));
 			return clientDetails;
 		} catch (IOException e) {
 			

@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import br.jhonatastomaz.interfaces.IService;
-import br.jhonatastomaz.interfaces.IServiceManager;
+import br.jhonatastomaz.interfaces.managers.IServiceManager;
 
 public class Service implements IService{
 
