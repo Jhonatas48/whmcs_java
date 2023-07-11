@@ -1,14 +1,15 @@
 package br.jhonatastomaz.implementations.managers;
 
-import me.hwiggy.whmjava.payload.Payload;
+import java.io.IOException;
+import java.util.stream.Collectors;
+
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.stream.Collectors;
+import me.hwiggy.whmjava.payload.Payload;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /***
  * This class is the entrypoint for the WHMCS Accessor
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
  * <a href="https://developers.whmcs.com/api/authentication/">API Documentation</a>
  */
 class WHMCSApi {
-    private final HttpClient client = HttpClient.newHttpClient();
+    private final OkHttpClient client = new OkHttpClient();
     private final String url, identifier, secret;
     private final boolean oldAuth;
 
@@ -72,19 +73,23 @@ class WHMCSApi {
                 .filter(it -> !it.getValue().toString().isEmpty())
                 .map(it -> it.getKey() + "=" + it.getValue())
                 .collect(Collectors.joining("&"));
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url + "?" + params + "&responsetype=json"))
-                //.uri(URI.create(url))
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.noBody())
-                .build();
-
-        HttpResponse<String> httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
-        if(httpResponse.statusCode() != 200) {
+        
+        String requestUrl = url + "?" + params + "&responsetype=json";
+       
+         //System.out.println("request: "+requestUrl);
+        
+        RequestBody requestyBody= RequestBody.create("",null) ;
+        Request request = new Request.Builder()
+        .url(requestUrl).post(requestyBody).addHeader("Content-Type", "application/json")
+        .build();
+        Response response = client.newCall(request).execute();
+       
+        if(!response.isSuccessful()) {
         	return null;
         }
         
-        String response = httpResponse.body();
-        return new JSONObject(response);
+        String body = response.body().string();
+      // System.out.println("Body: "+body);
+        return new JSONObject(body);
     }
 }

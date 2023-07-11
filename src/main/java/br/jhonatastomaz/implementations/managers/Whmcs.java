@@ -2,6 +2,7 @@ package br.jhonatastomaz.implementations.managers;
 
 import br.jhonatastomaz.interfaces.IWhmcs;
 import br.jhonatastomaz.interfaces.managers.IClientManager;
+import br.jhonatastomaz.interfaces.managers.IInvoiceManager;
 
 public class Whmcs implements IWhmcs{
 
@@ -22,6 +23,11 @@ public class Whmcs implements IWhmcs{
 	
 		return new ClientManager(api);
 	}
-
+	
+	@Override
+	public IInvoiceManager getInvoiceManager() {
+		return new InvoiceManager(api);
+	}
+	
 	
 }
