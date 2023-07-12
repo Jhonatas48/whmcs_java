@@ -33,7 +33,9 @@ public class Teste {
 		long d = System.currentTimeMillis();
 		WhmcsBuilder builder = new WhmcsBuilder("https://dashboard.cloudconnect.net.br/includes/api.php", "FizgdXypf0rHt5Sz4eNCLsObCfZhs8gk","abdXxQQX0E9uRwzmN2UloVrotqWx4EHC");
 		IWhmcs w = builder.build();
-		System.out.println("TESTE: "+(w.getClientManager().getClients()==null));
+		System.out.println("TESTE: "+(w.getUserManager().getUsers()==null));
+		 w.getUserManager().getUserById(0);
+		
 		//System.out.println("TESTE: "+(w.getInvoiceManager().getInvoicesByStatus(InvoiceStatus.Umpaid)==null));
 		//IClient c =w.getClientManager().getClientByEmail("harturbeltramello6@gmail.com");
 		//System.out.println("ID: "+c.getId());

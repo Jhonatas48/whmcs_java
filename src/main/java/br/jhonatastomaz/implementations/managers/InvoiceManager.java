@@ -13,6 +13,7 @@ import br.jhonatastomaz.implementations.models.Invoice;
 import br.jhonatastomaz.implementations.models.enums.InvoiceStatus;
 import br.jhonatastomaz.implementations.models.validations.Checkers;
 import br.jhonatastomaz.interfaces.IInvoice;
+import br.jhonatastomaz.interfaces.IUser;
 import br.jhonatastomaz.interfaces.managers.IInvoiceManager;
 import me.hwiggy.whmjava.payload.Payload;
 import me.hwiggy.whmjava.payload.g.GetInvoicesPayload;
@@ -139,7 +140,11 @@ public class InvoiceManager implements IInvoiceManager{
 				JSONObject invoiceObject = invoicesArray.getJSONObject(id);
 				Invoice  invoice = (Invoice) InvoiceDesserializer.deserialize(invoiceObject);
 				invoice.setInvoiceDetails(new InvoiceDetailsManager(api,invoice.getId()));
+				UserManager userManager = new UserManager(api);
+		        IUser user = userManager.getUserById(invoice.getUserId());
+		        invoice.setUser(user);
 				invoices.add(invoice);
+		        
 				
 			}
 			

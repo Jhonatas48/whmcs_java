@@ -48,11 +48,7 @@ public class ClientManager implements IClientManager{
 			
 			
 	   }
-	   /*
-  public IClient getClientById(int id) {
-		   return getClient(null, id);
-	   }
-	   */
+	
   public boolean addClient(IClient client) {
 	 
 	  return false;
@@ -63,6 +59,7 @@ public class ClientManager implements IClientManager{
   }
   
   private List<IClient> getClients(Payload payload) {
+	  
 	   Checkers.validadeObjectNotNull(payload,"payload");
 	   try {
 			JSONObject json =  api.submitPayload(payload);
@@ -113,7 +110,7 @@ public class ClientManager implements IClientManager{
 			  clients.add(client);
 			}
 			boolean v = (clients==null) ||clients.isEmpty(); // clients.size());
-			
+			System.out.println("CL: "+v);
 			return clients;
 		} catch (IOException e) {
 			

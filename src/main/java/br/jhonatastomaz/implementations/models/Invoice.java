@@ -3,12 +3,14 @@ package br.jhonatastomaz.implementations.models;
 import java.util.Date;
 
 import br.jhonatastomaz.interfaces.IInvoice;
+import br.jhonatastomaz.interfaces.IUser;
 import br.jhonatastomaz.interfaces.details.IInvoiceDetails;
 
 
 public class Invoice implements IInvoice{
     private int id;
     private int userId;
+    private IUser user;
     private String invoiceNum;
     private Date date;
     private Date dueDate;
@@ -244,6 +246,14 @@ public class Invoice implements IInvoice{
 
 	public void setInvoiceDetails(IInvoiceDetails invoiceDetails) {
 		this.invoiceDetails = invoiceDetails;
+	}
+
+	public IUser getUser() {
+		return user;
+	}
+
+	public void setUser(IUser user) {
+		this.user = user;
 	}
    
 }

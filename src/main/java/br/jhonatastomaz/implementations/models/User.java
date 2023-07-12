@@ -1,6 +1,9 @@
 package br.jhonatastomaz.implementations.models;
 
-import java.util.HashMap;
+import java.util.Date;
+import java.util.List;
+
+import br.jhonatastomaz.interfaces.IClient;
 import br.jhonatastomaz.interfaces.IUser;
 
 public class User implements IUser {
@@ -10,6 +13,10 @@ public class User implements IUser {
 	 private String name;
 	
 	 private String email;
+	 
+	 private Date datecreated;
+	 
+	 private List<IClient>clients;
 	 
 	 public User(int id, String name, String email) {
 	        this.id = id;
@@ -30,6 +37,7 @@ public class User implements IUser {
 		this.email = email;
 	}
 
+	@Override
 	public int getId() {
 	        return id;
 	}
@@ -50,6 +58,24 @@ public class User implements IUser {
 		return email;
 	}
 
-	   
+	@Override
+	public Date getDateCreated() {
+		
+		return datecreated;
+	}
+	
+	public void setDateCreated(Date datecreated) {
+		this.datecreated = datecreated;
+	}
+	
+	@Override
+	public List<IClient> getClients() {
+		return clients;
+	}
+
+	public void setClients(List<IClient> clients) {
+		this.clients = clients;
+	}
+
 
 }

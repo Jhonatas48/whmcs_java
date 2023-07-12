@@ -32,4 +32,5 @@ public interface IInvoice {
 	 String getCurrencyPrefix();
 	 String getCurrencySuffix();
 	 IInvoiceDetails getInvoiceDetails();
+	 public IUser getUser();
 }
