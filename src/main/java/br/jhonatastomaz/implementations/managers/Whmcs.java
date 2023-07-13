@@ -27,6 +27,7 @@ public class Whmcs implements IWhmcs{
 	
 	@Override
 	public IInvoiceManager getInvoiceManager() {
+		
 		return new InvoiceManager(api);
 	}
 	

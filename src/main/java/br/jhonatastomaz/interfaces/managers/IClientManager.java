@@ -8,7 +8,8 @@ public interface IClientManager {
 
 	public List<IClient>getClients();
 	public IClient getClientByEmail(String email);
-//	public IClient getClientById(int id);
+	public IClient getClientById(int id);
+	public IClient getClientByUserId(int id);
 	public boolean addClient(IClient client);
 	public boolean editClient(IClient client);
 }

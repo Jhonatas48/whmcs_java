@@ -114,7 +114,9 @@ public class ClientDesserializer {
 	            }
 	        }
 	        client.setUsers(userList);
-
+            if(client.getOwner() == null) {
+            	System.out.println("NULO CLID: "+client.getId());
+            }
 	        return client;
 	        
 	       }catch (JSONException e) {
@@ -141,6 +143,9 @@ public class ClientDesserializer {
 	            int customFieldId = customFieldObject.getInt("id");
 	            String customFieldValue = customFieldObject.get("value").toString();
 	            customFields.put(customFieldId, customFieldValue);
+	        }
+	        if(customFields == null ) {
+	        	customFields =  new HashMap<>();
 	        }
 	        return customFields;
 	    }

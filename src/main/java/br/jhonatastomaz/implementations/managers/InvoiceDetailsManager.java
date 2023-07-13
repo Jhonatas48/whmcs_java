@@ -9,13 +9,14 @@ import org.json.JSONObject;
 
 import br.jhonatastomaz.desserializer.TransactionDesserializer;
 import br.jhonatastomaz.implementations.models.ItemInvoice;
+import br.jhonatastomaz.implementations.models.validations.Checkers;
 import br.jhonatastomaz.interfaces.IItemInvoice;
 import br.jhonatastomaz.interfaces.ITransaction;
 import br.jhonatastomaz.interfaces.details.IInvoiceDetails;
 import me.hwiggy.whmjava.payload.Payload;
 import me.hwiggy.whmjava.payload.g.GetInvoicePayload;
 
-public class InvoiceDetailsManager implements IInvoiceDetails{
+class InvoiceDetailsManager implements IInvoiceDetails{
 	
 	    private WHMCSApi api;
 	    private int invoiceId;
@@ -119,7 +120,7 @@ public class InvoiceDetailsManager implements IInvoiceDetails{
 				}
 				this.items= itens;
 				
-				if (!json.has("transactions")) {
+				if (!json.has("transactions") || Checkers.isEmpty(json.get("transactions").toString())) {
 				    return;
 				}
 

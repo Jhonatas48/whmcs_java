@@ -13,7 +13,7 @@ import br.jhonatastomaz.interfaces.managers.IServiceManager;
 import me.hwiggy.whmjava.payload.Payload;
 import me.hwiggy.whmjava.payload.g.GetClientsProductsPayload;
 
-public class ServiceManager implements IServiceManager{
+class ServiceManager implements IServiceManager{
 
 	private WHMCSApi api;
 	private int clientid;

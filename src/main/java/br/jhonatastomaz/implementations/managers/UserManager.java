@@ -20,16 +20,19 @@ import me.hwiggy.whmjava.payload.g.GetUsersPayload;
 /**
  * 
  */
-public class UserManager implements IUserManager {
+class UserManager implements IUserManager {
 
 	private WHMCSApi api;
 	public UserManager(WHMCSApi api) {
 		this.api = api;
 	}
+	private List<IUser>users = new ArrayList<>();
+	
 	@Override
 	public List<IUser> getUsers() {
 		Payload payload = new GetUsersPayload();
-		return performGetUsers(payload);
+		users = performGetUsers(payload);
+		return users;
 	}
 
 	@Override
@@ -47,23 +50,36 @@ public class UserManager implements IUserManager {
 
 	@Override
 	public IUser getUserById(int id) {
-		
-        List<IUser>users =  getUsers();
-        
+	
         if(Checkers.isListEmpty(users)) {
-			return null;
+			getUsers();
 		}
-        Optional<IUser>userObject = users.stream().filter(user-> user.getId() == id).findFirst();
+       
+        IUser user = findUserById(id);
         
-        try {
-        	
-        	return userObject.get();
-        	
-        }catch (Exception e) {
+        if(Checkers.isObjectNull(user))
+        {
+        	getUsers();
+        	return findUserById(id);
+        }
+        
+      return user;
+        
+	}
+	
+	private IUser findUserById(int id) {
 		
-        	return null;
-		}
-        
+		  Optional<IUser>userObject = users.stream().filter(user-> user.getId() == id).findFirst();
+	        
+	        try {
+	        	
+	        	return userObject.get();
+	        	
+	        }catch (Exception e) {
+			
+	        	
+	        	return null;
+			}
 	}
     
 	private List<IUser>performGetUsers(Payload payload){

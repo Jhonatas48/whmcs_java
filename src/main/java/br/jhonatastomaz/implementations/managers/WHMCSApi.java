@@ -76,7 +76,7 @@ class WHMCSApi {
         
         String requestUrl = url + "?" + params + "&responsetype=json";
        
-     //    System.out.println("request: "+requestUrl);
+        // System.out.println("request: "+requestUrl);
         
         RequestBody requestyBody= RequestBody.create("",null) ;
         Request request = new Request.Builder()
@@ -89,7 +89,7 @@ class WHMCSApi {
         }
         
         String body = response.body().string();
-     // System.out.println("Body: "+body);
+        //System.out.println("Body: "+body);
         return new JSONObject(body);
     }
 }

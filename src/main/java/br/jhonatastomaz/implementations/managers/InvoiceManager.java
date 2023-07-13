@@ -12,13 +12,13 @@ import br.jhonatastomaz.desserializer.InvoiceDesserializer;
 import br.jhonatastomaz.implementations.models.Invoice;
 import br.jhonatastomaz.implementations.models.enums.InvoiceStatus;
 import br.jhonatastomaz.implementations.models.validations.Checkers;
+import br.jhonatastomaz.interfaces.IClient;
 import br.jhonatastomaz.interfaces.IInvoice;
-import br.jhonatastomaz.interfaces.IUser;
 import br.jhonatastomaz.interfaces.managers.IInvoiceManager;
 import me.hwiggy.whmjava.payload.Payload;
 import me.hwiggy.whmjava.payload.g.GetInvoicesPayload;
 
-public class InvoiceManager implements IInvoiceManager{
+class InvoiceManager implements IInvoiceManager{
 
 	private WHMCSApi api;
     private int userId;
@@ -56,6 +56,7 @@ public class InvoiceManager implements IInvoiceManager{
 		return performGetInvoices(payload);
 	}
 	
+	@SuppressWarnings("static-access")
 	@Override
 	public List<IInvoice> getInvoicesByStatus(InvoiceStatus status) {
 		
@@ -135,14 +136,14 @@ public class InvoiceManager implements IInvoiceManager{
 			
 			int lenght = invoicesArray.length();
 			List<IInvoice>invoices = new ArrayList<>();
-			
+			ClientManager clientManager = new ClientManager(api);
 			for(int id=0;id<lenght;id++) {
 				JSONObject invoiceObject = invoicesArray.getJSONObject(id);
 				Invoice  invoice = (Invoice) InvoiceDesserializer.deserialize(invoiceObject);
 				invoice.setInvoiceDetails(new InvoiceDetailsManager(api,invoice.getId()));
-				UserManager userManager = new UserManager(api);
-		        IUser user = userManager.getUserById(invoice.getUserId());
-		        invoice.setUser(user);
+				IClient client= clientManager.getClientById(invoice.getUserId());
+		        invoice.setClient(client); 
+				
 				invoices.add(invoice);
 		        
 				

@@ -73,6 +73,7 @@ public class WhmcsBuilder implements IWhmcsBuilder{
 
 	public IWhmcs build() {
 		
+		
 		if(api == null) {
 			throw new NullPointerException("Configure the builder first");
 		}

@@ -3,6 +3,7 @@ package br.jhonatastomaz.implementations.managers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -16,7 +17,7 @@ import me.hwiggy.whmjava.payload.Payload;
 import me.hwiggy.whmjava.payload.g.GetClientsDetailsPayload;
 import me.hwiggy.whmjava.payload.g.GetClientsPayload;
 
-public class ClientManager implements IClientManager{
+class ClientManager implements IClientManager{
 	
   private WHMCSApi api;
   
@@ -27,9 +28,15 @@ public class ClientManager implements IClientManager{
 		throw new NullPointerException("WhmcsAPi is null");
 	}
 }
+  private List<IClient>clients = new ArrayList<>();
   public List<IClient>getClients(){
 	    Payload payload = new GetClientsPayload();
-		return getClients(payload);   
+	    clients = getClients(payload);
+	    if(Checkers.isListEmpty(clients)) {
+	    	clients = new ArrayList<>();
+	    }
+	    
+		return clients; 
 	   }
 	   
   public IClient getClientByEmail(String email) {
@@ -37,18 +44,70 @@ public class ClientManager implements IClientManager{
 	      if(Checkers.isEmpty(email)) {
 	    	   return null;
 	       }
+	      IClient clientRetrieve =findClientByEmail(email);
+	      
+	      if(!Checkers.isObjectNull(clientRetrieve)) {
+	    	  return clientRetrieve;
+	      }
 	       
 	       Payload payload = new GetClientsPayload().withSearch(email);
 	       List<IClient>clientRetrieves=  getClients(payload);
 		   if(Checkers.isListEmpty(clientRetrieves)) {
 			   return null;
 		   }
+		   clients.add(clientRetrieves.get(0));
+		  //clients= clientRetrieves;
 		   
 		   return clientRetrieves.get(0);
 			
 			
 	   }
-	
+  public IClient getClientByUserId(int id) {
+      
+      
+	  Checkers.validadeLongPositive(id+"", "id");
+      IClient clientRetrieve =findClientByUserId(id);
+      
+      if(!Checkers.isObjectNull(clientRetrieve)) {
+    	  return clientRetrieve;
+      }
+       
+       List<IClient>clientRetrieves=  getClients();
+	   if(Checkers.isListEmpty(clientRetrieves)) {
+		   return null;
+	   }
+	   
+	  clients= clientRetrieves;
+	  clientRetrieve =findClientByUserId(id);
+	   return clientRetrieves.get(0);
+		
+		
+   }
+  
+  
+  public IClient getClientById(int id) {
+      
+      
+	  Checkers.validadeLongPositive(id+"", "id");
+      IClient clientRetrieve =findClientById(id);
+      
+      if(!Checkers.isObjectNull(clientRetrieve)) {
+    	  return clientRetrieve;
+      }
+     
+       List<IClient>clientRetrieves=  getClients();
+	   if(Checkers.isListEmpty(clientRetrieves)) {
+		   return null;
+	   }
+	   
+	  clients= clientRetrieves;
+	  clientRetrieve =findClientById(id);
+	   return clientRetrieve;
+		
+		
+   }
+
+  
   public boolean addClient(IClient client) {
 	 
 	  return false;
@@ -104,13 +163,12 @@ public class ClientManager implements IClientManager{
 				
 				Client clientDetails = ClientDesserializer.deserializeDetailsClient(json);
 				clientDetails.setDateCreated(client.getDateCreated());
-				
-			  client.setServiceManager(new ServiceManager(api,client.getId()));
-			  client.setInvoiceManager(new InvoiceManager(api, clientDetails.getOwner().getId()));
-			  clients.add(client);
+			
+			  clientDetails.setServiceManager(new ServiceManager(api,client.getId()));
+			  clientDetails.setInvoiceManager(new InvoiceManager(api, clientDetails.getId()));
+			  clients.add(clientDetails);
 			}
-			boolean v = (clients==null) ||clients.isEmpty(); // clients.size());
-			System.out.println("CL: "+v);
+		
 			return clients;
 		} catch (IOException e) {
 			
@@ -123,5 +181,54 @@ public class ClientManager implements IClientManager{
 		}
 //	   return null;
    }
+
+  
+  private IClient findClientByEmail(String email) {
+		
+		  Optional<IClient>clientObject = clients.stream().filter(client -> client.getEmail().equalsIgnoreCase(email)).findFirst();
+	        
+	        try {
+	        	
+	        	return clientObject.get();
+	        	
+	        }catch (Exception e) {
+			
+	        	
+	        	return null;
+			}
+	
+  }
+
+  private IClient findClientByUserId(int userId) {
+		
+	  Optional<IClient>clientObject = clients.stream().filter(client -> client.getOwner().getId() == userId).findFirst();
+        
+        try {
+        	
+        	return clientObject.get();
+        	
+        }catch (Exception e) {
+		
+        	
+        	return null;
+		}
+
+}
+  
+ private IClient findClientById(int userId) {
+	  
+	  Optional<IClient>clientObject = clients.stream().filter(client -> client.getId() == userId).findFirst();
+        
+        try {
+        	
+        	return clientObject.get();
+        	
+        }catch (Exception e) {
+		
+        	
+        	return null;
+		}
+
+}
 
 }

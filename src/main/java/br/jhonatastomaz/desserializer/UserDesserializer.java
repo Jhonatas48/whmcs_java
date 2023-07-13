@@ -22,22 +22,7 @@ public class UserDesserializer {
 		 user.setId(jsonObject.getInt("id"));
 		 user.setEmail(jsonObject.get("email").toString());
 		 user.setName(jsonObject.get("firstname").toString());
-		 
-		 JSONArray clientsArray = jsonObject.getJSONArray("clients");
-			
-		if(clientsArray == null|| clientsArray.length() == 0) {
-				return user;
-		}
-			
-		int lenght = clientsArray.length();
-			
-         List<IClient>clients = new ArrayList<>();
-         for(int id=0;id<lenght;id++) {
-        	 JSONObject clientObject = clientsArray.getJSONObject(id);
-        	 Client client = ClientDesserializer.deserializeClient(jsonObject);
-        	 
-        	 clients.add(client);
-         }
+		
 		 
          return user;
 	}
